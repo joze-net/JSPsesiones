@@ -4,6 +4,8 @@
     Author     : JOZE RODRIGUEZ
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>
@@ -56,24 +58,38 @@
             <h2>Tu carrito de compras</h2>
             
             <%
+            List<String> listaArticulos=(List<String>)session.getAttribute("sesioncreada");//este metodo nos devuelve un obj de session
+            
+            if(listaArticulos==null){
+                
+                listaArticulos=new ArrayList<>();//si la lista de articulos esta vacia quiere decir que no se a creado la sesion ni inicializado el arraylist con elemntos
+                session.setAttribute("sesioncreada",listaArticulos);//asi que habiendo llenado el array se crea la sesion y almacenamos en ella los elmentos seleccionados
+            }
+            
+            
             String[] articulos=request.getParameterValues("articulos");
             
             if(articulos!=null){
-            %><ul><%
+           
                 for(String pro: articulos){
                     
-                    %>
-                    <li>
-                    <%
-                    out.print(pro);
-                    %>
-                    </li>
-                    <%
+                    
+                    
+                    listaArticulos.add(pro);//asi que aqui agregamos los elementos seleccionados en el arraylist que se almacena en la sesion
+                         
+                    
                 }
-                %><ul><%
+               
+            }
+
+            %><ul><%
+            for(String l: listaArticulos){
+                
+                out.print("<li>"+l+"</li>");
+                
             }
             
-
+            %></ul><%
             
             %>
             
