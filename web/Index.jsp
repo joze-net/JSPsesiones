@@ -17,7 +17,7 @@
     <body>
         <div>
         
-            <form action="Index.jsp">
+            <form action="Index.jsp" method="POST">
                 <p>Articulos a comprar</p>
                 
                 <p>
